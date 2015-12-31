@@ -1,8 +1,9 @@
 language: php
 
+before_install:
+  - sudo apt-get install -y poppler-utils
+
 php:
-  - 5.5
-  - 5.6
   - 7.0
 
 env:
