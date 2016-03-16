@@ -28,6 +28,14 @@ class PdfToTextTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_hande_paths_with_spaces()
+    {
+        $pdfPath = __DIR__.'/testfiles/dummy with spaces in its name.pdf';
+
+        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath));
+    }
+
+    /** @test */
     public function it_will_throw_an_exception_when_the_pdf_is_not_found()
     {
         $this->setExpectedException(PdfNotFound::class);

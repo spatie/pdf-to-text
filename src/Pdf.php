@@ -30,7 +30,7 @@ class Pdf
 
     public function text() : string
     {
-        $process = new Process("{$this->binPath} {$this->pdf} -");
+        $process = new Process("{$this->binPath} '{$this->pdf}' -");
         $process->run();
 
         if (!$process->isSuccessful()) {
