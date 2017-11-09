@@ -2,11 +2,12 @@
 
 namespace Spatie\PdfToText\Test;
 
+use PHPUnit\Framework\TestCase;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
 
-class PdfToTextTest extends \PHPUnit_Framework_TestCase
+class PdfToTextTest extends TestCase
 {
     protected $dummyPdf = __DIR__.'/testfiles/dummy.pdf';
     protected $dummyPdfText = 'This is a dummy PDF';
@@ -38,7 +39,7 @@ class PdfToTextTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_will_throw_an_exception_when_the_pdf_is_not_found()
     {
-        $this->setExpectedException(PdfNotFound::class);
+        $this->expectException(PdfNotFound::class);
 
         (new Pdf())
             ->setPdf('/no/pdf/here/dummy.pdf')
@@ -48,7 +49,7 @@ class PdfToTextTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_will_throw_an_exception_when_the_binary_is_not_found()
     {
-        $this->setExpectedException(CouldNotExtractText::class);
+        $this->expectException(CouldNotExtractText::class);
 
         (new Pdf('/there/is/no/place/like/home/pdftotext'))
             ->setPdf($this->dummyPdf)
