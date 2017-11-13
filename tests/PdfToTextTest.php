@@ -37,6 +37,14 @@ class PdfToTextTest extends TestCase
     }
 
     /** @test */
+    public function it_can_hande_paths_with_single_quotes()
+    {
+        $pdfPath = __DIR__.'/testfiles/dummy\'s_file.pdf';
+
+        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath));
+    }
+
+    /** @test */
     public function it_will_throw_an_exception_when_the_pdf_is_not_found()
     {
         $this->expectException(PdfNotFound::class);
