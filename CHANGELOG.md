@@ -2,7 +2,7 @@
 
 All Notable changes to `pdf-to-text` will be documented in this file
 
-## 1.0.3
+## 1.0.3 - 2018-02-18
 
 - allow symfony 4, phpunit 7
 
