@@ -2,6 +2,10 @@
 
 All Notable changes to `pdf-to-text` will be documented in this file
 
+## 1.0.3
+
+- allow symfony 4, phpunit 7
+
 ## 1.0.2 - 2017-11-13
 
 - fix for pdf files with a single quote in the filename
