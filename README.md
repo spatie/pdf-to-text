@@ -69,7 +69,8 @@ Or easier:
 ```
 
 By default the package will assume that the `pdftotext` is located at `/usr/bin/pdftotext`.
-If you're using the a different location pass the path to the binary in constructor
+If you're command is located at a different location pass its binary path to constructor
+
 ```php
 $text = (new Pdf('/custom/path/to/pdftotext'))
     ->setPdf('book.pdf')
@@ -78,7 +79,22 @@ $text = (new Pdf('/custom/path/to/pdftotext'))
 
 or as the second parameter to the `getText`-function:
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext')
+ \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext');
+```
+
+Sometimes you may want to use [pdftotext options](https://linux.die.net/man/1/pdftotext). To do so you can set them up using the `setOptions` method
+
+```php
+$text = (new Pdf())
+    ->setPdf('table.pdf')
+    ->setOptions(['-layout'])
+    ->text()
+;
+```
+
+or as the third parameter to the `getText`-function:
+```php
+ \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext', ['-layout']);
 ```
 
 ## Change log

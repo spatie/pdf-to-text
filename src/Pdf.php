@@ -3,6 +3,7 @@
 namespace Spatie\PdfToText;
 
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
+use Spatie\PdfToText\Exceptions\InvalidOption;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Symfony\Component\Process\Process;
 
@@ -12,15 +13,17 @@ class Pdf
 
     protected $binPath;
 
+    protected $options = [];
+
     public function __construct(string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
     }
 
-    public function setPdf(string $pdf) : Pdf
+    public function setPdf(string $pdf) : self
     {
-        if (!file_exists($pdf)) {
-            throw new PdfNotFound("could not find pdf {$pdf}");
+        if (!\is_readable($pdf)) {
+            throw new PdfNotFound(sprintf('could not find pdf `%s` or is not readable', $pdf));
         }
 
         $this->pdf = $pdf;
@@ -28,11 +31,28 @@ class Pdf
         return $this;
     }
 
+    public function setOptions(array $options) : self
+    {
+        foreach ($options as $value) {
+            if (!\is_string($value) || '-' !== $value[0] ?? '') {
+                throw new InvalidOption('The options array contains invalid value');
+            }
+        }
+
+        $this->options = \array_unique($options);
+
+        return $this;
+    }
+
     public function text() : string
     {
-        $process = new Process("{$this->binPath} " . escapeshellarg($this->pdf) . " -");
-        $process->run();
+        $arguments = $this->options;
+        $arguments[] = $this->pdf;
+        $arguments[] = '-';
+        \array_unshift($arguments, $this->binPath);
 
+        $process = new Process($arguments);
+        $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
         }
@@ -40,10 +60,12 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, string $binPath = null) : string
+    public static function getText(string $pdf, string $binPath = null, array $options = []) : string
     {
         return (new static($binPath))
+            ->setOptions($options)
             ->setPdf($pdf)
-            ->text();
+            ->text()
+        ;
     }
 }
