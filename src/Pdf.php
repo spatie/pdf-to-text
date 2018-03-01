@@ -51,7 +51,8 @@ class Pdf
         $arguments[] = '-';
         \array_unshift($arguments, $this->binPath);
 
-        $process = new Process($arguments);
+        $commandline = implode(' ', array_map('escapeshellarg', $arguments));
+        $process = new Process($commandline);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
