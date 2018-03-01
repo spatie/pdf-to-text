@@ -4,6 +4,6 @@ namespace Spatie\PdfToText\Exceptions;
 
 use InvalidArgumentException;
 
-class MarlformedOption extends InvalidArgumentException
+class MalformedOption extends InvalidArgumentException
 {
 }
