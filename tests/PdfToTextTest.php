@@ -77,9 +77,17 @@ class PdfToTextTest extends TestCase
     }
 
     /** @test */
-    public function it_will_throw_an_exception_when_the_options_is_invalid()
+    public function it_will_throw_an_exception_when_the_option_is_invalid()
     {
         $this->expectException(InvalidOption::class);
         (new Pdf())->setOptions(['toto']);
+    }
+
+
+    /** @test */
+    public function it_will_throw_an_exception_when_the_option_is_unknown()
+    {
+        $this->expectException(CouldNotExtractText::class);
+        Pdf::getText($this->dummyPdf, null, ['-foo']);
     }
 }
