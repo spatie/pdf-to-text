@@ -23,7 +23,7 @@ class Pdf
     public function setPdf(string $pdf) : self
     {
         if (!\is_readable($pdf)) {
-            throw new PdfNotFound(sprintf('could not find pdf `%s` or is not readable', $pdf));
+            throw new PdfNotFound(\sprintf('could not find or read pdf `%s`', $pdf));
         }
 
         $this->pdf = $pdf;
@@ -41,11 +41,11 @@ class Pdf
     private function filterOption(string $content) : string
     {
         $content = \trim($content);
-        if ('-' !== $content[0] ?? '') {
-            throw new MalformedOption('The options array contains invalid value');
+        if (\preg_match('/^\-[A-Z]+/i', $content)) {
+            return $content;
         }
 
-        return $content;
+        throw new MalformedOption(\sprintf('malformed pdftotext option flag `%s`', $content));
     }
 
     public function text() : string
