@@ -4,7 +4,7 @@ namespace Spatie\PdfToText\Test;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
-use Spatie\PdfToText\Exceptions\InvalidOption;
+use Spatie\PdfToText\Exceptions\MalformedOption;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
 
@@ -79,7 +79,7 @@ class PdfToTextTest extends TestCase
     /** @test */
     public function it_will_throw_an_exception_when_the_option_is_invalid()
     {
-        $this->expectException(InvalidOption::class);
+        $this->expectException(MalformedOption::class);
         (new Pdf())->setOptions(['toto']);
     }
 
