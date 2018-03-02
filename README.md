@@ -65,7 +65,7 @@ $text = (new Pdf())
 Or easier:
 
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf')
+ \Spatie\PdfToText\Pdf::getText('book.pdf');
 ```
 
 By default the package will assume that the `pdftotext` is located at `/usr/bin/pdftotext`.
@@ -87,14 +87,14 @@ Sometimes you may want to use [pdftotext options](https://linux.die.net/man/1/pd
 ```php
 $text = (new Pdf())
     ->setPdf('table.pdf')
-    ->setOptions(['-layout'])
+    ->setOptions(['layout'])
     ->text()
 ;
 ```
 
 or as the third parameter to the `getText`-function:
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext', ['-layout']);
+ \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext', ['layout']);
 ```
 
 ## Change log

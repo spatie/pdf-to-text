@@ -50,6 +50,17 @@ class PdfToTextTest extends TestCase
     {
         $text = (new Pdf())
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
+            ->setOptions(['layout'])
+            ->text();
+
+        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+    }
+
+    /** @test */
+    public function it_can_handle_pdftotext_options_with_the_starting_hyphen_too()
+    {
+        $text = (new Pdf())
+            ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
             ->setOptions(['-layout'])
             ->text();
 
@@ -75,14 +86,6 @@ class PdfToTextTest extends TestCase
             ->setPdf($this->dummyPdf)
             ->text();
     }
-
-    /** @test */
-    public function it_will_throw_an_exception_when_the_option_is_invalid()
-    {
-        $this->expectException(MalformedOption::class);
-        (new Pdf())->setOptions(['toto']);
-    }
-
 
     /** @test */
     public function it_will_throw_an_exception_when_the_option_is_unknown()

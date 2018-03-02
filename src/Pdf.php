@@ -22,8 +22,8 @@ class Pdf
 
     public function setPdf(string $pdf) : self
     {
-        if (!\is_readable($pdf)) {
-            throw new PdfNotFound(\sprintf('could not find or read pdf `%s`', $pdf));
+        if (!is_readable($pdf)) {
+            throw new PdfNotFound(sprintf('could not find or read pdf `%s`', $pdf));
         }
 
         $this->pdf = $pdf;
@@ -33,36 +33,35 @@ class Pdf
 
     public function setOptions(array $options) : self
     {
-        $this->options = \array_map([$this, 'filterOption'], $options);
+        $this->options = array_map([$this, 'formatOption'], $options);
 
         return $this;
     }
 
-    private function filterOption(string $content) : string
+    protected function formatOption(string $content) : string
     {
-        $content = \trim($content);
-        if (\preg_match('/^\-[A-Z]+/i', $content)) {
+        $content = trim($content);
+        if ('-' === $content[0] ?? '') {
             return $content;
         }
 
-        throw new MalformedOption(\sprintf('malformed pdftotext option flag `%s`', $content));
+        return '-'.$content;
     }
 
     public function text() : string
     {
         $arguments = $this->options;
-        $arguments[] = $this->pdf;
+        $arguments[] = escapeshellarg($this->pdf);
         $arguments[] = '-';
-        \array_unshift($arguments, $this->binPath);
 
-        $commandline = \implode(' ', \array_map('escapeshellarg', $arguments));
+        $commandline = $this->binPath.' '.implode(' ', $arguments);
         $process = new Process($commandline);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
         }
 
-        return \trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
+        return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
     public static function getText(string $pdf, string $binPath = null, array $options = []) : string
