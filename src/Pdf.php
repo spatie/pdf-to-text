@@ -33,32 +33,27 @@ class Pdf
 
     public function setOptions(array $options) : self
     {
-        $options = array_map([$this, 'formatOption'], $options);
+        $formatter = function (string $content) : array {
+            $content = trim($content);
+            if ('-' !== ($content[0] ?? '')) {
+                $content = '-'.$content;
+            }
 
-        $this->options = array_reduce($options, function (array $carry, array $option): array {
+            return explode(' ', $content);
+        };
+
+        $reducer = function (array $carry, array $option) : array {
             return array_merge($carry, $option);
-        }, []);
+        };
+
+        $this->options = array_reduce(array_map($formatter, $options), $reducer, []);
 
         return $this;
     }
 
-    protected function formatOption(string $content) : array
-    {
-        $content = trim($content);
-        if ('-' !== ($content[0] ?? '')) {
-            $content = '-'.$content;
-        }
-
-        return explode(' ', $content);
-    }
-
     public function text() : string
     {
-        $arguments = $this->options;
-        $arguments[] = escapeshellarg($this->pdf);
-        $arguments[] = '-';
-
-        $process = new Process($this->binPath.' '.implode(' ', $arguments));
+        $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
         $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
