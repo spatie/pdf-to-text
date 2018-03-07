@@ -32,20 +32,20 @@ class Pdf
 
     public function setOptions(array $options) : self
     {
-        $formatter = function (string $content) : array {
+        $mapper = function (string $content) : array {
             $content = trim($content);
             if ('-' !== ($content[0] ?? '')) {
                 $content = '-'.$content;
             }
 
-            return explode(' ', $content);
+            return explode(' ', $content, 2);
         };
 
         $reducer = function (array $carry, array $option) : array {
             return array_merge($carry, $option);
         };
 
-        $this->options = array_reduce(array_map($formatter, $options), $reducer, []);
+        $this->options = array_reduce(array_map($mapper, $options), $reducer, []);
 
         return $this;
     }
