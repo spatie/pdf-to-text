@@ -2,7 +2,7 @@
 
 All Notable changes to `pdf-to-text` will be documented in this file
 
-## Next - TBD
+## 1.1.0 - 2018-03-08
 
 - allow setting pdftotext options
 - `Symfony/process` minimal requirement bumped to version 3.3
