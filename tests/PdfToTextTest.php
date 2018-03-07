@@ -29,7 +29,7 @@ class PdfToTextTest extends TestCase
     }
 
     /** @test */
-    public function it_can_hande_paths_with_spaces()
+    public function it_can_handle_paths_with_spaces()
     {
         $pdfPath = __DIR__.'/testfiles/dummy with spaces in its name.pdf';
 
@@ -37,11 +37,44 @@ class PdfToTextTest extends TestCase
     }
 
     /** @test */
-    public function it_can_hande_paths_with_single_quotes()
+    public function it_can_handle_paths_with_single_quotes()
     {
         $pdfPath = __DIR__.'/testfiles/dummy\'s_file.pdf';
 
         $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath));
+    }
+
+    /** @test */
+    public function it_can_handle_pdftotext_options_without_starting_hyphen()
+    {
+        $text = (new Pdf())
+            ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
+            ->setOptions(['layout', 'r 72'])
+            ->text();
+
+        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+    }
+
+    /** @test */
+    public function it_can_handle_pdftotext_options_with_starting_hyphen()
+    {
+        $text = (new Pdf())
+            ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
+            ->setOptions(['-layout', '-r 72'])
+            ->text();
+
+        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+    }
+
+    /** @test */
+    public function it_can_handle_pdftotext_options_with_mixed_hyphen_status()
+    {
+        $text = (new Pdf())
+            ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
+            ->setOptions(['-layout', 'r 72'])
+            ->text();
+
+        $this->assertContains("Charleroi 50      28     13 11 4", $text);
     }
 
     /** @test */
@@ -62,5 +95,12 @@ class PdfToTextTest extends TestCase
         (new Pdf('/there/is/no/place/like/home/pdftotext'))
             ->setPdf($this->dummyPdf)
             ->text();
+    }
+
+    /** @test */
+    public function it_will_throw_an_exception_when_the_option_is_unknown()
+    {
+        $this->expectException(CouldNotExtractText::class);
+        Pdf::getText($this->dummyPdf, null, ['-foo']);
     }
 }
