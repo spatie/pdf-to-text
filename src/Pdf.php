@@ -3,7 +3,6 @@
 namespace Spatie\PdfToText;
 
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
-use Spatie\PdfToText\Exceptions\MalformedOption;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Symfony\Component\Process\Process;
 
