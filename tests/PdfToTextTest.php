@@ -4,7 +4,6 @@ namespace Spatie\PdfToText\Test;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
-use Spatie\PdfToText\Exceptions\MalformedOption;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
 
@@ -46,22 +45,33 @@ class PdfToTextTest extends TestCase
     }
 
     /** @test */
-    public function it_can_handle_pdftotext_options()
+    public function it_can_handle_pdftotext_options_without_starting_hyphen()
     {
         $text = (new Pdf())
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
-            ->setOptions(['layout'])
+            ->setOptions(['layout', 'r 72'])
             ->text();
 
         $this->assertContains("Charleroi 50      28     13 11 4", $text);
     }
 
     /** @test */
-    public function it_can_handle_pdftotext_options_with_the_starting_hyphen_too()
+    public function it_can_handle_pdftotext_options_with_starting_hyphen()
     {
         $text = (new Pdf())
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
-            ->setOptions(['-layout'])
+            ->setOptions(['-layout', '-r 72'])
+            ->text();
+
+        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+    }
+
+    /** @test */
+    public function it_can_handle_pdftotext_options_with_mixed_hyphen_status()
+    {
+        $text = (new Pdf())
+            ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
+            ->setOptions(['-layout', 'r 72'])
             ->text();
 
         $this->assertContains("Charleroi 50      28     13 11 4", $text);
