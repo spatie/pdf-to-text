@@ -10,9 +10,12 @@
 This package provides a class to extract text from a pdf.
 
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf'); //returns the text from the pdf
-```
+<?php
 
+use Spatie\PdfToText\Pdf;
+
+echo Pdf::getText('book.pdf'); //returns the text from the pdf
+```
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -27,27 +30,29 @@ The best postcards will get published on the open source page on our website.
 ## Requirements
 
 Behind the scenes this package leverages [pdftotext](https://en.wikipedia.org/wiki/Pdftotext). You can verify if the binary installed on your system by issueing this command:
-```
-which pdftotext
+
+```bash
+$ which pdftotext
 ```
 
 If it is installed it will return the path to the binary.
 
 To install the binary you can use this command on Ubuntu or Debian:
 
-```php
-apt-get install poppler-utils
+```bash
+$ apt-get install poppler-utils
 ```
 
 If you're on RedHat or CentOS use this:
 
 ```bash
-yum install poppler-utils
+$ yum install poppler-utils
 ```
 
 ## Installation
 
 You can install the package via composer:
+
 ```bash
 $ composer require spatie/pdf-to-text
 ```
@@ -57,6 +62,10 @@ $ composer require spatie/pdf-to-text
 Extracting text from a pdf is easy.
 
 ```php
+<?php
+
+use Spatie\PdfToText\Pdf;
+
 $text = (new Pdf())
     ->setPdf('book.pdf')
     ->text();
@@ -65,13 +74,21 @@ $text = (new Pdf())
 Or easier:
 
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf');
+<?php
+
+use Spatie\PdfToText\Pdf;
+
+echo Pdf::getText('book.pdf');
 ```
 
-By default the package will assume that the `pdftotext` is located at `/usr/bin/pdftotext`.
-If your command is located at a different location pass its binary path to constructor
+By default the package will assume that the `pdftotext` command is located at `/usr/bin/pdftotext`.
+If it is located elsewhere pass its binary path to constructor
 
 ```php
+<?php
+
+use Spatie\PdfToText\Pdf;
+
 $text = (new Pdf('/custom/path/to/pdftotext'))
     ->setPdf('book.pdf')
     ->text();
@@ -80,15 +97,23 @@ $text = (new Pdf('/custom/path/to/pdftotext'))
 or as the second parameter to the `getText` static method:
 
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext');
+<?php
+
+use Spatie\PdfToText\Pdf;
+
+echo Pdf::getText('book.pdf', '/custom/path/to/pdftotext');
 ```
 
 Sometimes you may want to use [pdftotext options](https://linux.die.net/man/1/pdftotext). To do so you can set them up using the `setOptions` method.
 
 ```php
+<?php
+
+use Spatie\PdfToText\Pdf;
+
 $text = (new Pdf())
     ->setPdf('table.pdf')
-    ->setOptions(['layout'])
+    ->setOptions(['layout', 'r 96'])
     ->text()
 ;
 ```
@@ -96,16 +121,20 @@ $text = (new Pdf())
 or as the third parameter to the `getText` static method:
 
 ```php
- \Spatie\PdfToText\Pdf::getText('book.pdf', '/custom/path/to/pdftotext', ['layout']);
+<?php
+
+use Spatie\PdfToText\Pdf;
+
+echo Pdf::getText('book.pdf', null, ['layout', 'opw myP1$$Word']);
 ```
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more informations on what has changed recently.
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 
@@ -123,6 +152,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 - [All Contributors](../../contributors)
 
 ## About Spatie
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## License
