@@ -35,7 +35,7 @@ class Pdf
     {
         $options = array_map([$this, 'formatOption'], $options);
 
-        $this->options = array_reduce($options, function (array $carry, $option) {
+        $this->options = array_reduce($options, function (array $carry, array $option): array {
             return array_merge($carry, $option);
         }, []);
 
@@ -45,11 +45,11 @@ class Pdf
     protected function formatOption(string $content) : array
     {
         $content = trim($content);
-        if ('-' === $content[0] ?? '') {
-            return explode(' ', $content);
+        if ('-' !== ($content[0] ?? '')) {
+            $content = '-'.$content;
         }
 
-        return explode(' ', '-'.$content);
+        return explode(' ', $content);
     }
 
     public function text() : string
