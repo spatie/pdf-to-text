@@ -32,7 +32,7 @@ The best postcards will get published on the open source page on our website.
 Behind the scenes this package leverages [pdftotext](https://en.wikipedia.org/wiki/Pdftotext). You can verify if the binary installed on your system by issueing this command:
 
 ```bash
-$ which pdftotext
+which pdftotext
 ```
 
 If it is installed it will return the path to the binary.
@@ -40,13 +40,13 @@ If it is installed it will return the path to the binary.
 To install the binary you can use this command on Ubuntu or Debian:
 
 ```bash
-$ apt-get install poppler-utils
+apt-get install poppler-utils
 ```
 
 If you're on RedHat or CentOS use this:
 
 ```bash
-$ yum install poppler-utils
+yum install poppler-utils
 ```
 
 ## Installation
@@ -54,7 +54,7 @@ $ yum install poppler-utils
 You can install the package via composer:
 
 ```bash
-$ composer require spatie/pdf-to-text
+composer require spatie/pdf-to-text
 ```
 
 ## Usage
@@ -62,10 +62,6 @@ $ composer require spatie/pdf-to-text
 Extracting text from a pdf is easy.
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 $text = (new Pdf())
     ->setPdf('book.pdf')
     ->text();
@@ -74,10 +70,6 @@ $text = (new Pdf())
 Or easier:
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 echo Pdf::getText('book.pdf');
 ```
 
@@ -85,10 +77,6 @@ By default the package will assume that the `pdftotext` command is located at `/
 If it is located elsewhere pass its binary path to constructor
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 $text = (new Pdf('/custom/path/to/pdftotext'))
     ->setPdf('book.pdf')
     ->text();
@@ -97,20 +85,12 @@ $text = (new Pdf('/custom/path/to/pdftotext'))
 or as the second parameter to the `getText` static method:
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 echo Pdf::getText('book.pdf', '/custom/path/to/pdftotext');
 ```
 
 Sometimes you may want to use [pdftotext options](https://linux.die.net/man/1/pdftotext). To do so you can set them up using the `setOptions` method.
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 $text = (new Pdf())
     ->setPdf('table.pdf')
     ->setOptions(['layout', 'r 96'])
@@ -121,21 +101,17 @@ $text = (new Pdf())
 or as the third parameter to the `getText` static method:
 
 ```php
-<?php
-
-use Spatie\PdfToText\Pdf;
-
 echo Pdf::getText('book.pdf', null, ['layout', 'opw myP1$$Word']);
 ```
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more informations on what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
 
 ## Testing
 
 ```bash
-$ composer test
+ composer test
 ```
 
 ## Contributing
