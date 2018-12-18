@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/pdf-to-text.svg?style=flat-square)](https://packagist.org/packages/spatie/pdf-to-text)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/pdf-to-text/master.svg?style=flat-square)](https://travis-ci.org/spatie/pdf-to-text)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/9d85e8dd-b444-4bef-a5d5-faa7f2d8d6bb.svg?style=flat-square)](https://insight.sensiolabs.com/projects/9d85e8dd-b444-4bef-a5d5-faa7f2d8d6bb)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/pdf-to-text.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/pdf-to-text)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/pdf-to-text.svg?style=flat-square)](https://packagist.org/packages/spatie/pdf-to-text)
 
