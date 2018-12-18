@@ -9,8 +9,6 @@
 This package provides a class to extract text from a pdf.
 
 ```php
-<?php
-
 use Spatie\PdfToText\Pdf;
 
 echo Pdf::getText('book.pdf'); //returns the text from the pdf
