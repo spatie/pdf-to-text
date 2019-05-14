@@ -12,10 +12,28 @@ class PdfToTextTest extends TestCase
     protected $dummyPdf = __DIR__.'/testfiles/dummy.pdf';
     protected $dummyPdfText = 'This is a dummy PDF';
 
+    /**
+     * @var string
+     */
+    private $pdftotextPath;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        if (file_exists(__DIR__ . "/config.php")) {
+            $config = include __DIR__ . "/config.php";
+
+            $this->pdftotextPath = isset($config["pdftotextPath"])
+                ? $config["pdftotextPath"]
+                : null;
+        }
+    }
+
     /** @test */
     public function it_can_extract_text_from_a_pdf()
     {
-        $text = (new Pdf())
+        $text = (new Pdf($this->pdftotextPath))
             ->setPdf($this->dummyPdf)
             ->text();
 
@@ -25,7 +43,7 @@ class PdfToTextTest extends TestCase
     /** @test */
     public function it_provides_a_static_method_to_extract_text()
     {
-        $this->assertSame($this->dummyPdfText, Pdf::getText($this->dummyPdf));
+        $this->assertSame($this->dummyPdfText, Pdf::getText($this->dummyPdf, $this->pdftotextPath));
     }
 
     /** @test */
@@ -33,7 +51,7 @@ class PdfToTextTest extends TestCase
     {
         $pdfPath = __DIR__.'/testfiles/dummy with spaces in its name.pdf';
 
-        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath));
+        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath, $this->pdftotextPath));
     }
 
     /** @test */
@@ -41,40 +59,40 @@ class PdfToTextTest extends TestCase
     {
         $pdfPath = __DIR__.'/testfiles/dummy\'s_file.pdf';
 
-        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath));
+        $this->assertSame($this->dummyPdfText, Pdf::getText($pdfPath, $this->pdftotextPath));
     }
 
     /** @test */
     public function it_can_handle_pdftotext_options_without_starting_hyphen()
     {
-        $text = (new Pdf())
+        $text = (new Pdf($this->pdftotextPath))
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
-            ->setOptions(['layout', 'r 72'])
+            ->setOptions(['layout', 'f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertContains("Charleroi 50 28 13 11 4", $text);
     }
 
     /** @test */
     public function it_can_handle_pdftotext_options_with_starting_hyphen()
     {
-        $text = (new Pdf())
+        $text = (new Pdf($this->pdftotextPath))
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
-            ->setOptions(['-layout', '-r 72'])
+            ->setOptions(['-layout', '-f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertContains("Charleroi 50 28 13 11 4", $text);
     }
 
     /** @test */
     public function it_can_handle_pdftotext_options_with_mixed_hyphen_status()
     {
-        $text = (new Pdf())
+        $text = (new Pdf($this->pdftotextPath))
             ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
-            ->setOptions(['-layout', 'r 72'])
+            ->setOptions(['-layout', 'f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertContains("Charleroi 50 28 13 11 4", $text);
     }
 
     /** @test */
@@ -82,7 +100,7 @@ class PdfToTextTest extends TestCase
     {
         $this->expectException(PdfNotFound::class);
 
-        (new Pdf())
+        (new Pdf($this->pdftotextPath))
             ->setPdf('/no/pdf/here/dummy.pdf')
             ->text();
     }
@@ -101,6 +119,6 @@ class PdfToTextTest extends TestCase
     public function it_will_throw_an_exception_when_the_option_is_unknown()
     {
         $this->expectException(CouldNotExtractText::class);
-        Pdf::getText($this->dummyPdf, null, ['-foo']);
+        Pdf::getText($this->dummyPdf, $this->pdftotextPath, ['-foo']);
     }
 }
