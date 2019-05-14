@@ -25,8 +25,11 @@ We accept contributions via Pull Requests on [Github](https://github.com/spatie/
 ## Running Tests
 
 ``` bash
-$ phpunit
+$ vendor/bin/phpunit
 ```
+
+You must have `pdftotext` installed. If your path to the executable is not `/usr/bin/pdftotext`, you can define the path
+by creating `./tests/config.php` (see `./tests/config.sample.php` for example).
 
 
 **Happy coding**!

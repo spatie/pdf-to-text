@@ -121,4 +121,18 @@ class PdfToTextTest extends TestCase
         $this->expectException(CouldNotExtractText::class);
         Pdf::getText($this->dummyPdf, $this->pdftotextPath, ['-foo']);
     }
+
+    /** @test */
+    public function it_allows_for_options_to_be_added_programatically_without_overriding_previously_added_options()
+    {
+        $text = (new Pdf($this->pdftotextPath))
+            ->setPdf(__DIR__.'/testfiles/multi_page.pdf')
+            ->setOptions(['-layout', '-f 2'])
+            ->addOptions(['-l 2'])
+            ->text();
+
+        $this->assertContains("This is page 2", $text);
+        $this->assertNotContains("This is page 1", $text);
+        $this->assertNotContains("This is page 3", $text);
+    }
 }

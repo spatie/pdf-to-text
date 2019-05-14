@@ -101,6 +101,20 @@ or as the third parameter to the `getText` static method:
 echo Pdf::getText('book.pdf', null, ['layout', 'opw myP1$$Word']);
 ```
 
+Please note that successive calls to `setOptions()` will overwrite options passed in during previous calls. 
+
+If you need to make multiple calls to add options (for example if you need to pass in default options when creating 
+the `Pdf` object from a container, and then add context-specific options elsewhere), you can use the `addOptions()` method:
+ 
+ ```php
+ $text = (new Pdf())
+     ->setPdf('table.pdf')
+     ->setOptions(['layout', 'r 96'])
+     ->addOptions(['f 1'])
+     ->text()
+ ;
+ ```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
