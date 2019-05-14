@@ -39,9 +39,10 @@ class Pdf
 
     public function addOptions(array $options) : self
     {
-        foreach ($this->parseOptions($options) as $option) {
-            $this->options[] = $option;
-        }
+        $this->options = array_merge(
+            $this->options,
+            $this->parseOptions($options)
+        );
 
         return $this;
     }
