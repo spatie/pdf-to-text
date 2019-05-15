@@ -32,6 +32,23 @@ class Pdf
 
     public function setOptions(array $options) : self
     {
+        $this->options = $this->parseOptions($options);
+
+        return $this;
+    }
+
+    public function addOptions(array $options) : self
+    {
+        $this->options = array_merge(
+            $this->options,
+            $this->parseOptions($options)
+        );
+
+        return $this;
+    }
+
+    protected function parseOptions(array $options) : array
+    {
         $mapper = function (string $content) : array {
             $content = trim($content);
             if ('-' !== ($content[0] ?? '')) {
@@ -45,9 +62,7 @@ class Pdf
             return array_merge($carry, $option);
         };
 
-        $this->options = array_reduce(array_map($mapper, $options), $reducer, []);
-
-        return $this;
+        return array_reduce(array_map($mapper, $options), $reducer, []);
     }
 
     public function text() : string
