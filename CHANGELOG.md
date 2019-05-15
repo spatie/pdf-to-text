@@ -2,6 +2,10 @@
 
 All Notable changes to `pdf-to-text` will be documented in this file
 
+## 1.2.0 - 2019-05-15
+
+- adds `Pdf::addOptions()` method to address issue #18
+
 ## 1.1.0 - 2018-03-08
 
 - allow setting pdftotext options
