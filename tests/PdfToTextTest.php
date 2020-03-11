@@ -70,7 +70,7 @@ class PdfToTextTest extends TestCase
             ->setOptions(['layout', 'f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertStringContainsString("Charleroi 50      28     13 11 4", $text);
     }
 
     /** @test */
@@ -81,7 +81,7 @@ class PdfToTextTest extends TestCase
             ->setOptions(['-layout', '-f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertStringContainsString("Charleroi 50      28     13 11 4", $text);
     }
 
     /** @test */
@@ -92,7 +92,7 @@ class PdfToTextTest extends TestCase
             ->setOptions(['-layout', 'f 1'])
             ->text();
 
-        $this->assertContains("Charleroi 50      28     13 11 4", $text);
+        $this->assertStringContainsString("Charleroi 50      28     13 11 4", $text);
     }
 
     /** @test */
@@ -131,8 +131,8 @@ class PdfToTextTest extends TestCase
             ->addOptions(['-l 2'])
             ->text();
 
-        $this->assertContains("This is page 2", $text);
-        $this->assertNotContains("This is page 1", $text);
-        $this->assertNotContains("This is page 3", $text);
+        $this->assertStringContainsString("This is page 2", $text);
+        $this->assertStringNotContainsString("This is page 1", $text);
+        $this->assertStringNotContainsString("This is page 3", $text);
     }
 }
