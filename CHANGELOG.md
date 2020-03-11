@@ -1,6 +1,10 @@
 # Changelog
 
-All Notable changes to `pdf-to-text` will be documented in this file
+All notable changes to `pdf-to-text` will be documented in this file
+
+## 1.3.0 - 2020-03-11
+
+- allow Symfony 5 components
 
 ## 1.2.0 - 2019-05-15
 
