@@ -38,6 +38,12 @@ To install the binary you can use this command on Ubuntu or Debian:
 apt-get install poppler-utils
 ```
 
+On a mac you can install the binary using brew
+
+```bash
+brew install poppler
+```
+
 If you're on RedHat or CentOS use this:
 
 ```bash

@@ -19,10 +19,10 @@ class Pdf
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
     }
 
-    public function setPdf(string $pdf) : self
+    public function setPdf(string $pdf): self
     {
         if (!is_readable($pdf)) {
-            throw new PdfNotFound(sprintf('could not find or read pdf `%s`', $pdf));
+            throw new PdfNotFound("Could not read `{$pdf}`");
         }
 
         $this->pdf = $pdf;
@@ -30,14 +30,14 @@ class Pdf
         return $this;
     }
 
-    public function setOptions(array $options) : self
+    public function setOptions(array $options): self
     {
         $this->options = $this->parseOptions($options);
 
         return $this;
     }
 
-    public function addOptions(array $options) : self
+    public function addOptions(array $options): self
     {
         $this->options = array_merge(
             $this->options,
@@ -47,7 +47,7 @@ class Pdf
         return $this;
     }
 
-    protected function parseOptions(array $options) : array
+    protected function parseOptions(array $options): array
     {
         $mapper = function (string $content) : array {
             $content = trim($content);
