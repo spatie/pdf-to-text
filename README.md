@@ -1,8 +1,8 @@
 # Extract text from a pdf
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/pdf-to-text.svg?style=flat-square)](https://packagist.org/packages/spatie/pdf-to-text)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/pdf-to-text/run-tests?label=tests)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/pdf-to-text/master.svg?style=flat-square)](https://travis-ci.org/spatie/pdf-to-text)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/pdf-to-text.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/pdf-to-text)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/pdf-to-text.svg?style=flat-square)](https://packagist.org/packages/spatie/pdf-to-text)
 
@@ -16,13 +16,11 @@ echo Pdf::getText('book.pdf'); //returns the text from the pdf
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
-## Postcardware
+## Support us
 
-You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us). 
 
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
-
-The best postcards will get published on the open source page on our website.
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Requirements
 

@@ -17,7 +17,7 @@ class PdfToTextTest extends TestCase
      */
     private $pdftotextPath;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
