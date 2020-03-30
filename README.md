@@ -44,6 +44,21 @@ On a mac you can install the binary using brew
 brew install poppler
 ```
 
+On windows the binary can be installed by downloading it from
+
+http://www.xpdfreader.com/download.html
+
+Extracting the the zip, renaming `xpdf-tools-win-4.02\bin64` to `usr\bin` and putting these
+folders with the exe's in the project root. A windows project might look like:
+```
+user
+-bin
+--pdftotext.exe
+vendor
+pdf-input
+index.php
+```  
+
 If you're on RedHat or CentOS use this:
 
 ```bash
