@@ -85,17 +85,17 @@ class Pdf
      * @return string
      */
     public function text(): string {
-        /*_WINDOWS FIX */
+        $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
+        
+        /*_WINDOWS FIX, re-init $process */
         // Check if the OS is set, check if it's windows
         if(isset($_SERVER['OS']) && (strpos(strtolower($_SERVER['OS']), 'windows')) > -1) {
             // if we're on windows we may to need to append .exe and '.' for the CLI
             $windowsExePath = '.\\'.$this->binPath . '.exe';
             if(file_exists($windowsExePath)) {
+                unset($process);
                 $process = new Process(array_merge([$windowsExePath], $this->options, [$this->pdf, '-']));
             }
-        }
-        else {
-            $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
         }
         
         $process->run();
