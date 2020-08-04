@@ -78,8 +78,8 @@ Or easier:
 echo Pdf::getText('book.pdf');
 ```
 
-By default the package will assume that the `pdftotext` command is located at `/usr/bin/pdftotext`.
-If it is located elsewhere pass its binary path to constructor
+By default the package will use `which pdftotext` to determine the path to the `pdftotext` binary.
+You can manually override it by passing the binary path to the constructor.
 
 ```php
 $text = (new Pdf('/custom/path/to/pdftotext'))
