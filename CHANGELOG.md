@@ -2,6 +2,10 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.4.0 - 2020-11-27
+
+- add support for PHP 8
+
 ## 1.3.0 - 2020-03-11
 
 - allow Symfony 5 components
