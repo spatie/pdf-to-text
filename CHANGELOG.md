@@ -2,6 +2,20 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.5.0 - 2021-12-16
+
+## What's Changed
+
+- Correct file permissions by @peter279k in https://github.com/spatie/pdf-to-text/pull/39
+- Drop Support for PHP 7.3 & Add Support for PHP 8.1 by @nbayramberdiyev in https://github.com/spatie/pdf-to-text/pull/47
+
+## New Contributors
+
+- @peter279k made their first contribution in https://github.com/spatie/pdf-to-text/pull/39
+- @nbayramberdiyev made their first contribution in https://github.com/spatie/pdf-to-text/pull/47
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.4.0...1.5.0
+
 ## 1.4.0 - 2020-11-27
 
 - add support for PHP 8
