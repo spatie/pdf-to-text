@@ -14,7 +14,7 @@ class Pdf
 
     protected array $options = [];
 
-    public function __construct(string $binPath = null)
+    public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
     }
@@ -76,7 +76,7 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, string $binPath = null, array $options = []) : string
+    public static function getText(string $pdf, ?string $binPath = null, array $options = []) : string
     {
         return (new static($binPath))
             ->setOptions($options)
