@@ -8,13 +8,13 @@ use Symfony\Component\Process\Process;
 
 class Pdf
 {
-    protected $pdf;
+    protected string $pdf;
 
-    protected $binPath;
+    protected string $binPath;
 
-    protected $options = [];
+    protected array $options = [];
 
-    public function __construct(string $binPath = null)
+    public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
     }
@@ -49,7 +49,7 @@ class Pdf
 
     protected function parseOptions(array $options): array
     {
-        $mapper = function (string $content) : array {
+        $mapper = function (string $content): array {
             $content = trim($content);
             if ('-' !== ($content[0] ?? '')) {
                 $content = '-'.$content;
@@ -58,14 +58,14 @@ class Pdf
             return explode(' ', $content, 2);
         };
 
-        $reducer = function (array $carry, array $option) : array {
+        $reducer = function (array $carry, array $option): array {
             return array_merge($carry, $option);
         };
 
         return array_reduce(array_map($mapper, $options), $reducer, []);
     }
 
-    public function text() : string
+    public function text(): string
     {
         $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
         $process->run();
@@ -76,7 +76,7 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, string $binPath = null, array $options = []) : string
+    public static function getText(string $pdf, ?string $binPath = null, array $options = []): string
     {
         return (new static($binPath))
             ->setOptions($options)
