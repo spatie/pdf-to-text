@@ -8,11 +8,11 @@ use Symfony\Component\Process\Process;
 
 class Pdf
 {
-    protected $pdf;
+    protected string $pdf;
 
-    protected $binPath;
+    protected string $binPath;
 
-    protected $options = [];
+    protected array $options = [];
 
     public function __construct(string $binPath = null)
     {
