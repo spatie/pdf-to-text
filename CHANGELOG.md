@@ -2,6 +2,18 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.5.1 - 2022-01-01
+
+## What's Changed
+
+- Symfony 6.x support by @pich in https://github.com/spatie/pdf-to-text/pull/48
+
+## New Contributors
+
+- @pich made their first contribution in https://github.com/spatie/pdf-to-text/pull/48
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.5.0...1.51
+
 ## 1.5.0 - 2021-12-16
 
 ## What's Changed
