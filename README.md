@@ -49,7 +49,7 @@ On a mac you can install the binary using brew
 brew install poppler
 ```
 
-If you're on RedHat or CentOS use this:
+If you're on RedHat, CentOS, Rocky Linux or Fedora use this:
 
 ```bash
 yum install poppler-utils
