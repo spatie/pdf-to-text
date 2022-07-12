@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
 
 class PdfToTextTest extends TestCase
 {
@@ -134,5 +135,16 @@ class PdfToTextTest extends TestCase
         $this->assertStringContainsString("This is page 2", $text);
         $this->assertStringNotContainsString("This is page 1", $text);
         $this->assertStringNotContainsString("This is page 3", $text);
+    }
+
+    /** @test */
+    public function it_will_throw_an_exception_when_timeout_is_a_negative_number()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $text = (new Pdf($this->pdftotextPath))
+            ->setPdf($this->dummyPdf)
+            ->setTimeout(-1)
+            ->text();
     }
 }
