@@ -2,6 +2,19 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.6.0 - 2022-07-14
+
+### What's Changed
+
+- Add detailed Linux distribution about Fedora-based by @peter279k in https://github.com/spatie/pdf-to-text/pull/52
+- add timeout config for Symfony Process call by @jbraband in https://github.com/spatie/pdf-to-text/pull/54
+
+### New Contributors
+
+- @jbraband made their first contribution in https://github.com/spatie/pdf-to-text/pull/54
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.51...1.6.0
+
 ## 1.5.1 - 2022-01-01
 
 ## What's Changed
