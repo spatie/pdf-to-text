@@ -2,6 +2,10 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.52.0 - 2022-07-15
+
+- add higher tag so new releases are higher that the wrongly tagged 1.51
+
 ## 1.6.0 - 2022-07-14
 
 ### What's Changed
