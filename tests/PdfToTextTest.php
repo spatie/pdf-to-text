@@ -11,11 +11,9 @@ beforeEach(function () {
     $this->dummyPdf = __DIR__ . '/testfiles/dummy.pdf';
     $this->dummyPdfText = 'This is a dummy PDF';
 
-    if (PHP_OS === 'Linux') {
-        $this->pdftotextPath = '/usr/bin/pdftotext';
-    } else {
-        $this->pdftotextPath = '/opt/homebrew/bin/pdftotext';
-    }
+    $this->pdftotextPath = PHP_OS === 'Linux'
+        ?  '/usr/bin/pdftotext'
+        : '/opt/homebrew/bin/pdftotext';
 
     if (file_exists(__DIR__ . "/config.php")) {
         $config = include __DIR__ . "/config.php";
