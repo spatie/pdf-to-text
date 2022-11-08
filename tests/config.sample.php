@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'pdftotextPath' => '/opt/homebrew/bin/pdftotext',
+    'pdftotextPath' => '/usr/bin/pdftotext',
 ];
