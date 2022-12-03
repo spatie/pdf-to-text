@@ -60,9 +60,7 @@ class Pdf
             return explode(' ', $content, 2);
         };
 
-        $reducer = function (array $carry, array $option): array {
-            return array_merge($carry, $option);
-        };
+        $reducer = fn (array $carry, array $option): array => array_merge($carry, $option);
 
         return array_reduce(array_map($mapper, $options), $reducer, []);
     }
