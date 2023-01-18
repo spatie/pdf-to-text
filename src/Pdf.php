@@ -19,10 +19,24 @@ class Pdf
     public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
+        
+        if (!file_exists($binPath)) {
+            $binPath = '/usr/local/bin/pdftotext';
+        }
+        
+        if (!file_exists($binPath)) {
+            throw new \Exception(
+                sprintf('pdftotext not found. Please install it or set the path manually. See %s', 'https://github.com/spatie/pdf-to-text#requirements')
+            );
+        }
     }
 
     public function setPdf(string $pdf): self
     {
+        if (!file_exists($pdf)) {
+            throw new PdfNotFound("File `{$pdf}` not found");
+        }
+        
         if (!is_readable($pdf)) {
             throw new PdfNotFound("Could not read `{$pdf}`");
         }
