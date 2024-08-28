@@ -16,6 +16,8 @@ class Pdf
 
     protected int $timeout = 60;
 
+    protected array $env = [];
+
     public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdftotext';
@@ -70,9 +72,16 @@ class Pdf
         return $this;
     }
 
+    public function setEnv(array $env)
+    {
+        $this->env = $env;
+        return $this;
+    }
+
     public function text(): string
     {
         $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
+        $process->setEnv($this->env);
         $process->setTimeout($this->timeout);
         $process->run();
         if (!$process->isSuccessful()) {

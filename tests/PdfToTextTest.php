@@ -93,3 +93,14 @@ it('will throw an exception when timeout is a negative number')
             ->setTimeout(-1)
             ->text()
     )->throws(InvalidArgumentException::class);
+
+it('can handle symfony process env', function () {
+    $text = (new Pdf('pdftotext'))
+        ->setEnv([
+            'PATH' => substr($this->pdftotextPath, 0, strpos($this->pdftotextPath, '/pdftotext'))
+        ])
+        ->setPdf($this->dummyPdf)
+        ->text();
+
+    expect($text)->toBe($this->dummyPdfText);
+});
