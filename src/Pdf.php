@@ -2,6 +2,7 @@
 
 namespace Spatie\PdfToText;
 
+use Closure;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Symfony\Component\Process\Process;
@@ -72,17 +73,11 @@ class Pdf
         return $this;
     }
 
-    public function setEnv(array $env)
-    {
-        $this->env = $env;
-        return $this;
-    }
-
-    public function text(): string
+    public function text(?Closure $callback = null): string
     {
         $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
-        $process->setEnv($this->env);
         $process->setTimeout($this->timeout);
+        $process = $callback ? $callback($process) : $process;
         $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
@@ -91,13 +86,13 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, ?string $binPath = null, array $options = [], $timeout = 60): string
+    public static function getText(string $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
     {
         return (new static($binPath))
             ->setOptions($options)
             ->setTimeout($timeout)
             ->setPdf($pdf)
-            ->text()
+            ->text($callback)
         ;
     }
 }
