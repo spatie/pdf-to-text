@@ -2,6 +2,18 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.53.0 - 2024-08-29
+
+### What's Changed
+
+* ADD setEnv to Pdf by @enricodelazzari in https://github.com/spatie/pdf-to-text/pull/78
+
+### New Contributors
+
+* @enricodelazzari made their first contribution in https://github.com/spatie/pdf-to-text/pull/78
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.52.1...1.53.0
+
 ## 1.52.1 - 2023-12-14
 
 ### What's Changed
