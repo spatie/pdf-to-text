@@ -4,6 +4,7 @@ use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Process\Process;
 
 uses(PHPUnit\Framework\TestCase::class);
 
@@ -93,3 +94,17 @@ it('will throw an exception when timeout is a negative number')
             ->setTimeout(-1)
             ->text()
     )->throws(InvalidArgumentException::class);
+
+it('can handle symfony process by callback', function () {
+    $text = (new Pdf('pdftotext'))
+        ->setPdf($this->dummyPdf)
+        ->text(fn (Process $process) => $process);
+
+    expect($text)->toBe($this->dummyPdfText);
+});
+
+it('can handle symfony process by callback using a static method', function () {
+    $text = Pdf::getText($this->dummyPdf, 'pdftotext', [], 60, fn (Process $process) => $process);
+
+    expect($text)->toBe($this->dummyPdfText);
+});
