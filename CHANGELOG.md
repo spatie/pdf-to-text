@@ -2,6 +2,18 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.54.0 - 2024-10-18
+
+### What's Changed
+
+* Add Default Binary Path Detection for pdftotext in Constructor by @akr4m in https://github.com/spatie/pdf-to-text/pull/79
+
+### New Contributors
+
+* @akr4m made their first contribution in https://github.com/spatie/pdf-to-text/pull/79
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.53.0...1.54.0
+
 ## 1.53.0 - 2024-08-29
 
 ### What's Changed
