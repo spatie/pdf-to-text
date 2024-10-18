@@ -3,6 +3,7 @@
 namespace Spatie\PdfToText;
 
 use Closure;
+use Spatie\PdfToText\Exceptions\BinaryNotFoundException;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Symfony\Component\Process\Process;
@@ -21,7 +22,26 @@ class Pdf
 
     public function __construct(?string $binPath = null)
     {
-        $this->binPath = $binPath ?? '/usr/bin/pdftotext';
+        $this->binPath = $binPath ?? $this->findPdfToText();
+    }
+
+    protected function findPdfToText(): string
+    {
+        $commonPaths = [
+            '/usr/bin/pdftotext',          // Common on Linux
+            '/usr/local/bin/pdftotext',    // Common on Linux
+            '/opt/homebrew/bin/pdftotext', // Homebrew on macOS (Apple Silicon)
+            '/opt/local/bin/pdftotext',    // MacPorts on macOS
+            '/usr/local/bin/pdftotext',    // Homebrew on macOS (Intel)
+        ];
+
+        foreach ($commonPaths as $path) {
+            if (is_executable($path)) {
+                return $path;
+            }
+        }
+
+        throw new BinaryNotFoundException("The required binary was not found or is not executable.");
     }
 
     public function setPdf(string $pdf): self
