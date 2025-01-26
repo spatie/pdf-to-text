@@ -88,7 +88,8 @@ class Pdf
         return array_reduce(array_map($mapper, $options), $reducer, []);
     }
 
-    public function setTimeout($timeout) {
+    public function setTimeout($timeout) 
+    {
         $this->timeout = $timeout;
         return $this;
     }
