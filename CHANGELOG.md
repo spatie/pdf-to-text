@@ -2,6 +2,20 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.54.1 - 2025-06-13
+
+### What's Changed
+
+* fix: update style for consistency across codebase by @tanvir2sky in https://github.com/spatie/pdf-to-text/pull/82
+* Added Windows support by @sertxudev in https://github.com/spatie/pdf-to-text/pull/83
+
+### New Contributors
+
+* @tanvir2sky made their first contribution in https://github.com/spatie/pdf-to-text/pull/82
+* @sertxudev made their first contribution in https://github.com/spatie/pdf-to-text/pull/83
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.54.0...1.54.1
+
 ## 1.54.0 - 2024-10-18
 
 ### What's Changed
