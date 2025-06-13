@@ -52,6 +52,11 @@ If you're on RedHat, CentOS, Rocky Linux or Fedora use this:
 yum install poppler-utils
 ```
 
+If you're on Windows you can download the [Xpdf command line tools](https://www.xpdfreader.com/download.html) and store its content at `C:\Program Files\xpdf-tools-win`.
+
+The path to the `php2text.exe` executable should be `C:\Program Files\xpdf-tools-win\bin64\pdftotext.exe`.
+
+
 ## Installation
 
 You can install the package via composer:
