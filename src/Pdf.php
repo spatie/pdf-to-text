@@ -20,6 +20,8 @@ class Pdf
 
     protected array $env = [];
 
+    private string $input;
+
     public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? $this->findPdfToText();
@@ -45,10 +47,13 @@ class Pdf
         throw new BinaryNotFoundException("The required binary was not found or is not executable.");
     }
 
-    public function setPdf(string $pdf): self
+    public function setPdf(string|resource $pdf): self
     {
         if (!is_readable($pdf)) {
-            throw new PdfNotFound("Could not read `{$pdf}`");
+            $this->pdf = '-';
+            $this->input = $pdf;
+
+            return $this;
         }
 
         $this->pdf = $pdf;
@@ -100,6 +105,9 @@ class Pdf
         $process = new Process(array_merge([$this->binPath], $this->options, [$this->pdf, '-']));
         $process->setTimeout($this->timeout);
         $process = $callback ? $callback($process) : $process;
+        if ($this->input) {
+            $process->setInput($this->input);
+        }
         $process->run();
         if (!$process->isSuccessful()) {
             throw new CouldNotExtractText($process);
@@ -108,7 +116,7 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
+    public static function getText(string|resource $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
     {
         return (new static($binPath))
             ->setOptions($options)
