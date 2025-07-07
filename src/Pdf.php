@@ -20,7 +20,7 @@ class Pdf
 
     protected array $env = [];
 
-    private string $input;
+    private mixed $input = '';
 
     public function __construct(?string $binPath = null)
     {
@@ -47,9 +47,9 @@ class Pdf
         throw new BinaryNotFoundException("The required binary was not found or is not executable.");
     }
 
-    public function setPdf(string|resource $pdf): self
+    public function setPdf(mixed $pdf): self
     {
-        if (!is_readable($pdf)) {
+        if (is_resource($pdf) || !is_readable($pdf) ) {
             $this->pdf = '-';
             $this->input = $pdf;
 
@@ -94,7 +94,7 @@ class Pdf
         return array_reduce(array_map($mapper, $options), $reducer, []);
     }
 
-    public function setTimeout($timeout) 
+    public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
         return $this;
@@ -116,7 +116,7 @@ class Pdf
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string|resource $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
+    public static function getText(mixed $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
     {
         return (new static($binPath))
             ->setOptions($options)
