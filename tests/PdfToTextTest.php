@@ -9,15 +9,15 @@ use Symfony\Component\Process\Process;
 uses(PHPUnit\Framework\TestCase::class);
 
 beforeEach(function () {
-    $this->dummyPdf = __DIR__ . '/testfiles/dummy.pdf';
+    $this->dummyPdf = __DIR__.'/testfiles/dummy.pdf';
     $this->dummyPdfText = 'This is a dummy PDF';
 
     $this->pdftotextPath = PHP_OS === 'Linux'
         ? '/usr/bin/pdftotext'
         : '/opt/homebrew/bin/pdftotext';
 
-    if (file_exists(__DIR__ . '/config.php')) {
-        $config = include __DIR__ . '/config.php';
+    if (file_exists(__DIR__.'/config.php')) {
+        $config = include __DIR__.'/config.php';
 
         $this->pdftotextPath = isset($config['pdftotextPath'])
             ? $config['pdftotextPath']
@@ -39,7 +39,7 @@ it('provides a static method to extract text', function () {
 });
 
 it('can handle paths', function (string $path) {
-    $pdfPath = __DIR__ . $path;
+    $pdfPath = __DIR__.$path;
 
     expect(Pdf::getText($pdfPath, $this->pdftotextPath))->toBe($this->dummyPdfText);
 })->with([
@@ -49,7 +49,7 @@ it('can handle paths', function (string $path) {
 
 it('can handle pdftotext options', function (array $options) {
     $text = (new Pdf($this->pdftotextPath))
-        ->setPdf(__DIR__ . '/testfiles/scoreboard.pdf')
+        ->setPdf(__DIR__.'/testfiles/scoreboard.pdf')
         ->setOptions($options)
         ->text();
 
@@ -78,7 +78,7 @@ it('will throw an exception when the option is unknown', function () {
 
 it('allows for options to be added programatically without overriding previously added options', function () {
     $text = (new Pdf($this->pdftotextPath))
-        ->setPdf(__DIR__ . '/testfiles/multi_page.pdf')
+        ->setPdf(__DIR__.'/testfiles/multi_page.pdf')
         ->setOptions(['-layout', '-f 2'])
         ->addOptions(['-l 2'])
         ->text();

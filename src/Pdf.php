@@ -78,7 +78,7 @@ class Pdf
         $mapper = function (string $content): array {
             $content = trim($content);
             if ('-' !== ($content[0] ?? '')) {
-                $content = '-' . $content;
+                $content = '-'.$content;
             }
 
             return explode(' ', $content, 2);
