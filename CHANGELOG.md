@@ -2,6 +2,20 @@
 
 All notable changes to `pdf-to-text` will be documented in this file
 
+## 1.55.0 - 2025-11-24
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/pdf-to-text/pull/87
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/pdf-to-text/pull/89
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/pdf-to-text/pull/87
+* @thecaliskan made their first contribution in https://github.com/spatie/pdf-to-text/pull/89
+
+**Full Changelog**: https://github.com/spatie/pdf-to-text/compare/1.54.1...1.55.0
+
 ## 1.54.1 - 2025-06-13
 
 ### What's Changed
