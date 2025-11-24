@@ -13,14 +13,14 @@ beforeEach(function () {
     $this->dummyPdfText = 'This is a dummy PDF';
 
     $this->pdftotextPath = PHP_OS === 'Linux'
-        ?  '/usr/bin/pdftotext'
+        ? '/usr/bin/pdftotext'
         : '/opt/homebrew/bin/pdftotext';
 
-    if (file_exists(__DIR__ . "/config.php")) {
-        $config = include __DIR__ . "/config.php";
+    if (file_exists(__DIR__ . '/config.php')) {
+        $config = include __DIR__ . '/config.php';
 
-        $this->pdftotextPath = isset($config["pdftotextPath"])
-            ? $config["pdftotextPath"]
+        $this->pdftotextPath = isset($config['pdftotextPath'])
+            ? $config['pdftotextPath']
             : null;
     }
 });
@@ -44,7 +44,7 @@ it('can handle paths', function (string $path) {
     expect(Pdf::getText($pdfPath, $this->pdftotextPath))->toBe($this->dummyPdfText);
 })->with([
     'with spaces' => '/testfiles/dummy with spaces in its name.pdf',
-    'with single quotes' => '/testfiles/dummy\'s_file.pdf'
+    'with single quotes' => '/testfiles/dummy\'s_file.pdf',
 ]);
 
 it('can handle pdftotext options', function (array $options) {
@@ -53,11 +53,11 @@ it('can handle pdftotext options', function (array $options) {
         ->setOptions($options)
         ->text();
 
-    expect($text)->toContain("Charleroi 50      28     13 11 4");
+    expect($text)->toContain('Charleroi 50      28     13 11 4');
 })->with([
-    'without starting hyphen'  => fn () => ['layout', 'f 1'],
-    'with starting hyphen'  => fn () => ['-layout', '-f 1'],
-    'with mixed hyphen status' => fn () => ['-layout', 'f 1']
+    'without starting hyphen' => fn () => ['layout', 'f 1'],
+    'with starting hyphen' => fn () => ['-layout', '-f 1'],
+    'with mixed hyphen status' => fn () => ['-layout', 'f 1'],
 ]);
 
 it('will throw an exception when the PDF is not found', function () {
@@ -72,9 +72,9 @@ it('will throw an exception when the binary is not found', function () {
         ->text();
 })->throws(CouldNotExtractText::class);
 
-it('will throw an exception when the option is unknown')
-    ->tap(fn () => Pdf::getText($this->dummyPdf, $this->pdftotextPath, ['-foo']))
-    ->throws(CouldNotExtractText::class);
+it('will throw an exception when the option is unknown', function () {
+    Pdf::getText($this->dummyPdf, $this->pdftotextPath, ['-foo']);
+})->throws(CouldNotExtractText::class);
 
 it('allows for options to be added programatically without overriding previously added options', function () {
     $text = (new Pdf($this->pdftotextPath))
@@ -83,17 +83,16 @@ it('allows for options to be added programatically without overriding previously
         ->addOptions(['-l 2'])
         ->text();
 
-    expect($text)->toContain("This is page 2")
-        ->not->toContain("This is page 1", "This is page 3");
+    expect($text)->toContain('This is page 2')
+        ->not->toContain('This is page 1', 'This is page 3');
 });
 
-it('will throw an exception when timeout is a negative number')
-    ->tap(
-        fn () => (new Pdf($this->pdftotextPath))
-            ->setPdf($this->dummyPdf)
-            ->setTimeout(-1)
-            ->text()
-    )->throws(InvalidArgumentException::class);
+it('will throw an exception when timeout is a negative number', function () {
+    (new Pdf($this->pdftotextPath))
+        ->setPdf($this->dummyPdf)
+        ->setTimeout(-1)
+        ->text();
+})->throws(InvalidArgumentException::class);
 
 it('can handle symfony process by callback', function () {
     $text = (new Pdf('pdftotext'))

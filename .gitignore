@@ -3,6 +3,6 @@ composer.lock
 docs
 vendor
 tests/config.php
-.phpunit.result.cache
+.phpunit.cache
 .idea
 .vscode

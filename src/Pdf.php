@@ -42,12 +42,12 @@ class Pdf
             }
         }
 
-        throw new BinaryNotFoundException("The required binary was not found or is not executable.");
+        throw new BinaryNotFoundException('The required binary was not found or is not executable.');
     }
 
     public function setPdf(string $pdf): self
     {
-        if (!is_readable($pdf)) {
+        if (! is_readable($pdf)) {
             throw new PdfNotFound("Could not read `{$pdf}`");
         }
 
@@ -78,7 +78,7 @@ class Pdf
         $mapper = function (string $content): array {
             $content = trim($content);
             if ('-' !== ($content[0] ?? '')) {
-                $content = '-'.$content;
+                $content = '-' . $content;
             }
 
             return explode(' ', $content, 2);
@@ -89,9 +89,10 @@ class Pdf
         return array_reduce(array_map($mapper, $options), $reducer, []);
     }
 
-    public function setTimeout($timeout) 
+    public function setTimeout(int $timeout): self
     {
         $this->timeout = $timeout;
+
         return $this;
     }
 
@@ -101,20 +102,19 @@ class Pdf
         $process->setTimeout($this->timeout);
         $process = $callback ? $callback($process) : $process;
         $process->run();
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new CouldNotExtractText($process);
         }
 
         return trim($process->getOutput(), " \t\n\r\0\x0B\x0C");
     }
 
-    public static function getText(string $pdf, ?string $binPath = null, array $options = [], $timeout = 60, ?Closure $callback = null): string
+    public static function getText(string $pdf, ?string $binPath = null, array $options = [], int $timeout = 60, ?Closure $callback = null): string
     {
         return (new static($binPath))
             ->setOptions($options)
             ->setTimeout($timeout)
             ->setPdf($pdf)
-            ->text($callback)
-        ;
+            ->text($callback);
     }
 }

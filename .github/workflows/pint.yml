@@ -1,0 +1,32 @@
+name: Check & fix styling
+
+on: [push, pull_request]
+
+jobs:
+    style:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+                with:
+                    ref: ${{ github.head_ref }}
+                    token: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.4'
+                    extensions: dom, curl, libxml, mbstring, zip
+                    coverage: none
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-interaction
+
+            -   name: Run Pint
+                run: vendor/bin/pint
+
+            -   name: Commit linted files
+                uses: stefanzweifel/git-auto-commit-action@v5
+                with:
+                    commit_message: 'Fix styling'

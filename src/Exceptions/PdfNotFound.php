@@ -4,6 +4,4 @@ namespace Spatie\PdfToText\Exceptions;
 
 use Exception;
 
-class PdfNotFound extends Exception
-{
-}
+class PdfNotFound extends Exception {}
