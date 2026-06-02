@@ -1,12 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Spatie\PdfToText\Exceptions\CouldNotExtractText;
 use Spatie\PdfToText\Exceptions\PdfNotFound;
 use Spatie\PdfToText\Pdf;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Process;
 
-uses(PHPUnit\Framework\TestCase::class);
+uses(TestCase::class);
 
 beforeEach(function () {
     $this->dummyPdf = __DIR__.'/testfiles/dummy.pdf';
