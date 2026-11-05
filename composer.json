@@ -20,7 +20,7 @@
         "symfony/process": "^7.0|^8.0"
     },
     "require-dev": {
-        "pestphp/pest": "^4.0",
+        "pestphp/pest": "^5.0",
         "laravel/pint": "^1.18"
     },
     "autoload": {
